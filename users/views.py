@@ -55,17 +55,13 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get', 'patch'],
             permission_classes=[IsAuthenticated])
-    def me(self, request, *args, **kwargs):
-        user = request.user
-
-        if request.method == 'GET':
-            serializer = self.get_serializer(user)
-            return Response(serializer.data)
-
-        if request.method == 'PATCH':
-            serializer = self.get_serializer(user, data=request.data,
-                                             partial=True)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+    def me(self, request):
+        user = self.request.user
+        serializer = self.get_serializer(
+            user,
+            data=request.data,
+            partial=True
+        )
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
