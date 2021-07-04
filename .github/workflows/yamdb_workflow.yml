@@ -66,10 +66,10 @@ jobs:
             echo DB_HOST=${{ secrets.DB_HOST }} >> .env
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
             sudo docker-compose up -d
-            sudo docker cp /home/dedra12/redoc.yaml dedra12_web_1:/code/static
-            sudo docker-compose exec web python manage.py makemigrations api
-            sudo docker-compose exec web python manage.py makemigrations review
-            sudo docker-compose exec web python manage.py makemigrations users
+            sudo docker cp /home/${{ secrets.USER }}/redoc.yaml ${{ secrets.USER }}_web_1:/code/static
+            sudo docker-compose exec web python manage.py makemigrations api --noinput
+            sudo docker-compose exec web python manage.py makemigrations review --noinput
+            sudo docker-compose exec web python manage.py makemigrations users --noinput
             sudo docker-compose exec web python manage.py migrate --noinput
             sudo docker-compose exec web python manage.py collectstatic --no-input
 
