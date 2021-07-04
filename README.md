@@ -48,5 +48,8 @@ POSTGRES_PASSWORD=my_pass
 DB_HOST=db_host
 DB_PORT=db_port
 
+### Адрес сайта
+http://178.154.244.79/redoc/
+
 #### Автор:
 Автор Дмитрий. Задание было выполнено в рамках курса от Yandex-Praktikum бэкенд разработчик.
